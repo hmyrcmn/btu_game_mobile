@@ -1,86 +1,63 @@
-import React, { useState } from 'react';
-import { StyleSheet, Button, Text, Alert, TouchableOpacity, View } from 'react-native';
-//import { Permission } from 'react-native';
-import Permission_page from "./screens/Permission_page";
-const App = () => {
-  const [features, setFeature] = useState([]);
-  const options = ['camera'];
+import Checkbox from 'expo-checkbox';
+import React, { useState, useEffect } from 'react';
+import { Accelerometer } from 'expo-sensors';
+import { StyleSheet, Text, View, Button, Alert, TouchableOpacity, } from 'react-native';
+import { Card } from 'react-native-paper';
+import AssetExample from './components/AssetExample';
 
-  function pickFeatures(selectedFeature) {
-
-    if (features.includes(selectedFeature)) {
-      selectedFeature(features.filter(Feature => Feature !== selectedFeature))
-      return;
-    }
-    setFeature(Feature => Feature.concat(selectedFeature))
-  }
+export default function App() {
+  const [isChecked1, setChecked1 ] = useState(false);
+  const [isChecked2, setChecked2 ] = useState(false);
+  const [isChecked3, setChecked3 ] = useState(false);
+  const [isChecked4, setChecked4 ] = useState(false);
 
   return (
     <View style={styles.container}>
+      <View style={styles.section}>
+        <Checkbox style={styles.checkbox} value={isChecked1} onValueChange={setChecked1} />
+        <Text style={styles.paragraph}>s1</Text>
+        <Checkbox style={styles.checkbox} value={isChecked2} onValueChange={setChecked2} />
+        <Text style={styles.paragraph}>s2</Text>
+        <Checkbox style={styles.checkbox} value={isChecked3} onValueChange={setChecked3} />
+        <Text style={styles.paragraph}>s3</Text>
+        <Checkbox style={styles.checkbox} value={isChecked4} onValueChange={setChecked4} />
+        <Text style={styles.paragraph}>s4</Text>
+      </View>
 
-      <View style={styles.options}>
-        {
-          options.map(option => (
-            <View key={option} style={styles.features}>
-              <TouchableOpacity style={styles.checkBox} onPress={() => pickFeatures(option)}>
-                {features.includes(option) && (<Text style={styles.check}>x</Text>)}
-              </TouchableOpacity>
-              <Text style={styles.featureName}>{option}</Text>
-            </View>
-
-          ))}
-          
-      <View style={styles.options}>
+      <View>
         <Button
-          title="Seç"
+          title="Başlat"
           color="#660066"
-          onPress={App}
-         // onPress={() => navigation.navigate('Permission_page', { name: 'About Page' })}
+          onPress={() => Alert.alert('Başlat')}
         />
       </View>
-      </View>
 
+      <Text>------------------------------------------------</Text>
+      <Card>
+        <AssetExample />
+      </Card>
+      <Text>------------------------------------------------</Text>
 
     </View>
   );
-};
-
-export default App;
+}
 
 const styles = StyleSheet.create({
   container: {
-    margin: 50,
     flex: 1,
-    backgroundColor: '#fff',
+    marginHorizontal: 30,
+    marginVertical: 100,
+  },
+  section: {
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  options: {
-    flexDirection: 'row',
-    alignSelf: 'baseline',
-    marginLeft: 5,
-
+  paragraph: {
+    fontSize: 15,
   },
-  features: {
-    flexDirection: 'row',
-    marginVertical: 10,
-    marginHorizontal: 10,
-
-  },
-  checkBox: {
-
-    width: 25,
-    height: 25,
-    borderWidth: 2,
-    borderColor: 'green',
-    marginRight: 5,
-  },
-  featureName: {
-    textTransform: 'capitalize',
-    fontSize: 16,
-  },
-  check: {
-    alignSelf: 'center',
+  checkbox: {
+    margin: 8,
+    
   },
 });
-
