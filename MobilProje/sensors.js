@@ -5,7 +5,7 @@ import { Accelerometer } from 'expo-sensors';
 
 const App = () => {
   const [features, setFeature] = useState([]);
-  const options = ['s1','s2','s3','s4'];
+  const options = ['s1','s2','s3','s4'];   
 
   return (
     <View style={styles.container}>
